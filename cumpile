@@ -1,0 +1,3 @@
+#!/bin/bash
+
+node cumpile.js $1
