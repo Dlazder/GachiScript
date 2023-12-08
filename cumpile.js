@@ -10,11 +10,11 @@ let currWord = ''
 let isInString = false
 
 function isMatch(word, strict) {
-if (dictionary[word] !== undefined) {
-	return dictionary[word]
-}
-if (strict) return ''
-else return currWord
+	if (dictionary[word] !== undefined) {
+		return dictionary[word]
+	}
+	if (strict) return ''
+	else return currWord
 }
 
 function reset(s) {
@@ -24,7 +24,6 @@ function reset(s) {
 
 for (let i = 0; i < str.length; i++) {
 
-	log(currWord)
 	if (str[i + 1] === undefined) {
 		currWord += str[i]
 		output += isMatch(currWord)
@@ -39,7 +38,6 @@ for (let i = 0; i < str.length; i++) {
 		continue
 	}
 
-
 	if (str[i] === '\n') {
 		if (isMatch(currWord)) {
 			output += isMatch(currWord)
@@ -50,6 +48,7 @@ for (let i = 0; i < str.length; i++) {
 
 	if (!isInString) {
 
+
 		if (str[i] === ' ') {
 			// если убрать все мелкие операторы сломаются
 			if (currWord) {
@@ -59,10 +58,10 @@ for (let i = 0; i < str.length; i++) {
 
 		} else if (str[i] === '.') {
 
-			if (currWord) {
-				output += isMatch(currWord)
-			}
-			reset('.')
+		if (currWord) {
+			output += isMatch(currWord)
+		}
+		reset('.')
 
 		} else if (str[i] === '(') {
 			if (currWord) {
@@ -70,7 +69,14 @@ for (let i = 0; i < str.length; i++) {
 			}
 			reset('(')
 		} else if(str[i] === ')') {
+			output += currWord
 			reset(')')
+		} else if (str[i] === '{' || str[i] === '}') {
+			output += currWord
+			reset(str[i])
+		} else if (str[i].match(/\d/)) {
+			output += currWord;
+			reset(str[i])
 		} else if (str[i].match(/[a-zA-Zа-яА-Я0-9=;:{}\(\)=<>\-\+]/)) {
 			currWord += str[i]
 		}
